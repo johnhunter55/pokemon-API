@@ -1,20 +1,20 @@
-const pokeBtn = document.getElementById("fetch-btn");
-
-pokeBtn.addEventListener("click", async () => {
+async function fetchPokemon() {
   const res = await fetch("https://pokeapi.co/api/v2/pokemon?");
-
   const data = await res.json();
 
-  for (let i = 0; i < data.results.length; i++) {
-    const re2 = await fetch(data.results[i].url);
-    const data2 = await re2.json();
-    console.log(data2);
+  const firstRes = await fetch(data.results[0].url);
+  const firstData = await firstRes.json();
+  document.getElementById("pokemon-image").src =
+    firstData.sprites.front_default;
 
-    const listContainer = document.querySelector(".modal-list");
-    const listItem = document.createElement("li");
+  document.getElementById("pokemon-info").innerText =
+    `Name: ${firstData.name}\nHeight: ${firstData.height}\nWeight: ${firstData.weight}`;
 
-    listItem.innerText = data2.name;
-    listItem.innerHTML += `<img src="${data2.sprites.front_default}" alt="${data2.name}">`;
-    listContainer.appendChild(listItem);
-  }
-});
+  //   for (let i = 0; i < data.results.length; i++) {
+  //     const re2 = await fetch(data.results[i].url);
+  //     const data2 = await re2.json();
+  //     console.log(data2);
+  //   }
+}
+
+fetchPokemon();
