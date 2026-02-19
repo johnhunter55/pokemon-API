@@ -65,8 +65,7 @@ body {
 }
 
 button:hover {
-  background-color: rgb(45, 162, 204);
-  border: none;
+  background-color: rgb(36, 129, 163);
 }
 
 ul {
@@ -74,11 +73,12 @@ ul {
 }
 
 button {
+  border: none;
   color: white;
   padding: 5px 10px;
-  width: 80px;
+  width: 120px;
   background-color: rgb(81, 153, 182);
-  border: 2px solid rgb(255, 255, 255);
+
   border-radius: 5px;
   font-size: 1.5em;
   font-weight: bold;
