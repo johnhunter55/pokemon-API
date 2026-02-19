@@ -2,13 +2,42 @@ async function fetchPokemon() {
   const res = await fetch("https://pokeapi.co/api/v2/pokemon?");
   const data = await res.json();
 
-  const firstRes = await fetch(data.results[0].url);
-  const firstData = await firstRes.json();
-  document.getElementById("pokemon-image").src =
-    firstData.sprites.front_default;
+  let index = 0;
 
-  document.getElementById("pokemon-info").innerText =
-    `Name: ${firstData.name}\nHeight: ${firstData.height}\nWeight: ${firstData.weight}`;
+  const updateUI = async () => {
+    const pokemonRes = await fetch(data.results[index].url);
+    const pokemonData = await pokemonRes.json();
+    document.getElementById("pokemon-image").src =
+      pokemonData.sprites.front_default;
+
+    document.getElementById("pokemon-info").innerText =
+      `Name: ${pokemonData.name}\nHeight: ${pokemonData.height}\nWeight: ${pokemonData.weight}`;
+  };
+
+  await updateUI();
+
+  const lB = document.getElementById("left");
+  const rB = document.getElementById("right");
+
+  lB.addEventListener("click", async () => {
+    if (index > 0) {
+      index -= 1;
+      await updateUI();
+    } else {
+      index = data.results.length - 1;
+      await updateUI();
+    }
+  });
+
+  rB.addEventListener("click", async () => {
+    if (index < data.results.length - 1) {
+      index += 1;
+      await updateUI();
+    } else {
+      index = 0;
+      await updateUI();
+    }
+  });
 
   //   for (let i = 0; i < data.results.length; i++) {
   //     const re2 = await fetch(data.results[i].url);
